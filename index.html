@@ -65,8 +65,8 @@
 
                      <div class="col-md-4 status">
                         <h5>$ <span id="subTotal">1278</span></h5>
-                        <h5>$ <span id="tex">0</span></h5>
-                        <h5>$ <span id="total">1,278</span></h5>
+                        <h5>$ <span id="tex">0.64</span></h5>
+                        <h5>$ <span id="total">1278.64</span></h5>
                      </div>
                   </div>
                </div>
@@ -81,71 +81,91 @@
    <script>
       const plus = document.getElementById("plusBtn");
       plus.addEventListener("click", function(){
-         plusQuantity("quantity");
-         priceIncrease("price", 1219);
-
+         // plusQuantity("quantity");
+         plusQuantity("quantity","price", 1219);
+         // priceIncrease("price", 1219);
+         cart();
 
       })
       const minus = document.getElementById("minusBtn");
       minus.addEventListener("click", function(){
-         minusQuantity("quantity");
-         priceDecrease("price", 1219)
-
+         minusQuantity("quantity","price", 1219);
+         // minusQuantity("quantity");
+         // priceDecrease("price", 1219)
+         cart();
       })
 
       //product 2
       const plus2 = document.getElementById("plusBtn2");
       plus2.addEventListener("click", function(){
-         plusQuantity("quantityTwo");
-         priceIncrease("priceTwo", 59);
-
+         plusQuantity("quantityTwo","priceTwo", 59);
+         // priceIncrease("priceTwo", 59);
+         cart();
 
       })
       const minus2 = document.getElementById("minusBtn2");
       minus2.addEventListener("click", function(){
-         minusQuantity("quantityTwo");
-         priceDecrease("priceTwo", 59)
-
+         minusQuantity("quantityTwo","priceTwo", 59);
+         // priceDecrease("priceTwo", 59)
+         cart();
       })
 
      
 
-      function plusQuantity(id){
+      function plusQuantity(id,id2,defaultPrice){
          const quantityValue = document.getElementById(id).value;
          var quantityNumber = parseFloat(quantityValue);
          quantityNumber = quantityNumber+1;
          document.getElementById(id).value = quantityNumber;
-      }
-      function minusQuantity(id){
-         const quantityValue = document.getElementById(id).value;
-         var quantityNumber = parseFloat(quantityValue);
-         quantityNumber = quantityNumber-1;
-         document.getElementById(id).value = quantityNumber;
-      }
 
-      function priceIncrease(id, defaultPrice){
-         //pricing increase 
-         const price = document.getElementById(id).innerText;
+
+         const price = document.getElementById(id2).innerText;
          const priceAmount = parseFloat(price);
          var totalPrice= priceAmount + defaultPrice;
-         document.getElementById(id).innerText = totalPrice;
-         afterPrInc = totalPrice;
+         document.getElementById(id2).innerText = totalPrice;
       }
-      function priceDecrease(id, defaultPrice){
-         //pricing decrease 
-         const price = document.getElementById(id).innerText;
+      function minusQuantity(id, id2, defaultPrice){
+         const quantityValue = parseFloat(document.getElementById(id).value);
+         // var quantityNumber = parseFloat(quantityValue);
+         // quantityNumber = quantityNumber-1;
+         document.getElementById(id).value = quantityValue-1;
+
+
+
+         const price = document.getElementById(id2).innerText;
          const priceAmount = parseFloat(price);
          var totalPrice = priceAmount - defaultPrice;
-         document.getElementById(id).innerText = totalPrice;
-         afterPrDec = totalPrice;
+         document.getElementById(id2).innerText = totalPrice;
       }
 
+      // function priceIncrease(id, defaultPrice){
+      //    //pricing increase 
+      //    const price = document.getElementById(id).innerText;
+      //    const priceAmount = parseFloat(price);
+      //    var totalPrice= priceAmount + defaultPrice;
+      //    document.getElementById(id).innerText = totalPrice;
+      // }
+      // function priceDecrease(id, defaultPrice){
+      //    //pricing decrease 
+      //    const price = document.getElementById(id).innerText;
+      //    const priceAmount = parseFloat(price);
+      //    var totalPrice = priceAmount - defaultPrice;
+      //    document.getElementById(id).innerText = totalPrice;
+      // }
+
        //calculate subtotal and total
-       document.getElementById("plusBtn").addEventListener('click',function(){
-         const subTotal = document.getElementById("subTotal").innerText;
-         const subTotalAmount = parseFloat(subTotal);
-         document.getElementById("subTotal").innerText = afterPrInc+afterPrDec;
-       })
+      //  document.getElementById("plusBtn").addEventListener('click',function(){
+         //priceTwo 
+      //  })
+      function cart(){
+         const subTotal = parseFloat(document.getElementById("price").innerText)+parseFloat(document.getElementById("priceTwo").innerText);
+         // console.log(object);
+         document.getElementById("subTotal").innerText = subTotal;
+         document.getElementById("tex").innerText = (subTotal*0.05).toFixed(2);
+
+
+         document.getElementById("total").innerText = parseFloat(document.getElementById("subTotal").innerText)+parseFloat(document.getElementById("tex").innerText);
+      }
       
 
 
